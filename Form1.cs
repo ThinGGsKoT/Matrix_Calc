@@ -471,9 +471,13 @@ namespace Matrix_Calc
             for (int co2 = 1; co2 <= s; co2++)
                 dataGridView2.Columns[co2 - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
+
+
         #endregion
 
-    
+        private void label4_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

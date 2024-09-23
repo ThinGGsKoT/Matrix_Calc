@@ -51,6 +51,7 @@
             this.btn_plus = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -323,10 +324,21 @@
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(445, 513);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(125, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Худяков Б.В. Прог-С-21";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(582, 533);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.Ans_Grid);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -344,6 +356,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Ans_Grid)).EndInit();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -371,6 +384,7 @@
         private System.Windows.Forms.Button btn_Minus;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label label4;
     }
 }
 
