@@ -262,6 +262,7 @@ namespace Matrix_Calc
             double[,] Matrix2 = new double[dataGridView2.RowCount, dataGridView2.ColumnCount];
             try
             {
+                watch1.Start();
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
                     for (int j = 0; j < dataGridView1.ColumnCount; j++)
@@ -299,7 +300,7 @@ namespace Matrix_Calc
                 //производим умножение элементов
                 try
                 {
-                    watch1.Start();
+                    
                     for(i=0; i<Matrix1.GetLength(0); i++)
                     {
                         // Идём по столбцам 2 матрицы
