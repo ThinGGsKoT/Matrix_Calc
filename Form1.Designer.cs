@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button6 = new System.Windows.Forms.Button();
             this.btn_createMatrix = new System.Windows.Forms.Button();
@@ -47,11 +47,14 @@
             this.txt_row2 = new System.Windows.Forms.TextBox();
             this.Ans_Grid = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_Minus = new System.Windows.Forms.Button();
             this.btn_plus = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -67,8 +70,8 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.ColumnHeadersVisible = false;
@@ -76,7 +79,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(225, 213);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellValueChanged);
             // 
             // button6
             // 
@@ -90,7 +93,7 @@
             this.button6.TabIndex = 6;
             this.button6.Text = "Транспонировать";
             this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // btn_createMatrix
             // 
@@ -104,7 +107,7 @@
             this.btn_createMatrix.TabIndex = 18;
             this.btn_createMatrix.Text = "Создать";
             this.btn_createMatrix.UseVisualStyleBackColor = false;
-            this.btn_createMatrix.Click += new System.EventHandler(this.btn_createMatrix_Click);
+            this.btn_createMatrix.Click += new System.EventHandler(this.Btn_createMatrix_Click);
             // 
             // panel1
             // 
@@ -180,7 +183,7 @@
             this.button8.TabIndex = 7;
             this.button8.Text = "Транспонировать";
             this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button8.Click += new System.EventHandler(this.Button8_Click);
             // 
             // label2
             // 
@@ -203,7 +206,7 @@
             this.button5.TabIndex = 19;
             this.button5.Text = "Создать";
             this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // label3
             // 
@@ -224,7 +227,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(225, 213);
             this.dataGridView2.TabIndex = 0;
-            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellValueChanged);
             // 
             // txt_Col2
             // 
@@ -254,6 +257,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.btn_Minus);
             this.panel3.Controls.Add(this.btn_plus);
             this.panel3.Controls.Add(this.btn_clear);
@@ -264,20 +268,35 @@
             this.panel3.Size = new System.Drawing.Size(104, 230);
             this.panel3.TabIndex = 10;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Info;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Arial Black", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(3, 137);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(96, 50);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Умножить\r\nпараллельно";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // btn_Minus
             // 
             this.btn_Minus.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.btn_Minus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_Minus.Font = new System.Drawing.Font("Arial Black", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_Minus.ForeColor = System.Drawing.Color.Black;
-            this.btn_Minus.Location = new System.Drawing.Point(3, 58);
+            this.btn_Minus.Location = new System.Drawing.Point(3, 44);
             this.btn_Minus.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Minus.Name = "btn_Minus";
-            this.btn_Minus.Size = new System.Drawing.Size(96, 57);
+            this.btn_Minus.Size = new System.Drawing.Size(96, 43);
             this.btn_Minus.TabIndex = 5;
             this.btn_Minus.Text = "Вычесть";
             this.btn_Minus.UseVisualStyleBackColor = false;
-            this.btn_Minus.Click += new System.EventHandler(this.btn_Minus_Click);
+            this.btn_Minus.Click += new System.EventHandler(this.Btn_Minus_Click);
             // 
             // btn_plus
             // 
@@ -288,11 +307,11 @@
             this.btn_plus.Location = new System.Drawing.Point(3, 2);
             this.btn_plus.Margin = new System.Windows.Forms.Padding(2);
             this.btn_plus.Name = "btn_plus";
-            this.btn_plus.Size = new System.Drawing.Size(96, 52);
+            this.btn_plus.Size = new System.Drawing.Size(96, 38);
             this.btn_plus.TabIndex = 4;
             this.btn_plus.Text = "Сложить";
             this.btn_plus.UseVisualStyleBackColor = false;
-            this.btn_plus.Click += new System.EventHandler(this.btn_plus_Click);
+            this.btn_plus.Click += new System.EventHandler(this.Btn_plus_Click);
             // 
             // btn_clear
             // 
@@ -300,29 +319,29 @@
             this.btn_clear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_clear.ForeColor = System.Drawing.Color.Black;
-            this.btn_clear.Location = new System.Drawing.Point(3, 177);
+            this.btn_clear.Location = new System.Drawing.Point(3, 191);
             this.btn_clear.Margin = new System.Windows.Forms.Padding(2);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(96, 35);
             this.btn_clear.TabIndex = 3;
             this.btn_clear.Text = "Очистить";
             this.btn_clear.UseVisualStyleBackColor = false;
-            this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
+            this.btn_clear.Click += new System.EventHandler(this.Btn_clear_Click);
             // 
             // button7
             // 
             this.button7.BackColor = System.Drawing.SystemColors.Info;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button7.Font = new System.Drawing.Font("Arial Black", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button7.Font = new System.Drawing.Font("Arial Black", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button7.ForeColor = System.Drawing.Color.Black;
-            this.button7.Location = new System.Drawing.Point(3, 119);
+            this.button7.Location = new System.Drawing.Point(2, 91);
             this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(96, 54);
+            this.button7.Size = new System.Drawing.Size(96, 42);
             this.button7.TabIndex = 2;
-            this.button7.Text = "Умножить";
+            this.button7.Text = "Умножить\r\nпослед.";
             this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
             // 
             // label4
             // 
@@ -334,10 +353,30 @@
             this.label4.Text = "Худяков Б.В. Прог-С-21";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(432, 313);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Время послед\r\n";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(432, 407);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(103, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Время параллельн\r\n";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(582, 533);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Ans_Grid);
             this.Controls.Add(this.panel2);
@@ -385,6 +424,9 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
 

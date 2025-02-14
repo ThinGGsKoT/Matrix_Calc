@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 
 
@@ -10,10 +11,10 @@ namespace Matrix_Calc
 
     #region Объявление общих переменных
 
-        int n = 0;
+        readonly int n = 0;
         int i = 0;
         int j = 0;
-        int k = 0;
+        readonly int k = 0;
         int q = 0;
         int p = 0;
         int r = 0;
@@ -39,6 +40,8 @@ namespace Matrix_Calc
             dataGridView1.Hide();
             dataGridView2.Hide();
             Ans_Grid.Hide();
+            label5.Hide();
+            label6.Hide();
         }
 
     #endregion
@@ -46,7 +49,7 @@ namespace Matrix_Calc
     #region Кнопки Матрицы 1
 
         #region Создание формы матрицы
-        public void btn_createMatrix_Click(object sender, EventArgs e)
+        public void Btn_createMatrix_Click(object sender, EventArgs e)
         {
             //Анализируем ввод данных
             if (txt_Row1.Text != "" & txt_Columns.Text != "")
@@ -86,7 +89,7 @@ namespace Matrix_Calc
         #endregion
 
         #region Транспонирование
-        private void button6_Click(object sender, EventArgs e)
+        private void Button6_Click(object sender, EventArgs e)
         {
             //Запихиваем всё в 1-ую матрицу
             double[,] Matrix1 = new double[dataGridView1.RowCount, dataGridView1.ColumnCount];
@@ -148,7 +151,7 @@ namespace Matrix_Calc
     #region Кнопки Матрицы 2
 
         #region Создание формы матрицы
-        private void button5_Click(object sender, EventArgs e)
+        private void Button5_Click(object sender, EventArgs e)
         {
             //Анализируем ввод данных
             if (txt_row2.Text != "" & txt_Col2.Text != "")
@@ -190,7 +193,7 @@ namespace Matrix_Calc
         #endregion
 
         #region Транспонирование
-        private void button8_Click(object sender, EventArgs e)
+        private void Button8_Click(object sender, EventArgs e)
         {
             //Запихиваем всё во 2-ую матрицу
             double[,] Matrix2 = new double[dataGridView2.RowCount, dataGridView2.ColumnCount];
@@ -247,13 +250,14 @@ namespace Matrix_Calc
         }
         #endregion
 
-    #endregion
+        #endregion
 
-    #region Кнопки операций
+        #region Кнопки операций
 
-        #region Умножение
-        private void button7_Click(object sender, EventArgs e)
+        #region Умножение (последовательно)
+        private void Button7_Click(object sender, EventArgs e)
         {
+            var watch1 = new System.Diagnostics.Stopwatch();
             double[,] Matrix1 = new double[dataGridView1.RowCount, dataGridView1.ColumnCount];
             double[,] Matrix2 = new double[dataGridView2.RowCount, dataGridView2.ColumnCount];
             try
@@ -295,7 +299,8 @@ namespace Matrix_Calc
                 //производим умножение элементов
                 try
                 {
-                    for (int i = 0; i < Matrix1.GetLength(0); i++)
+                    watch1.Start();
+                    for(i=0; i<Matrix1.GetLength(0); i++)
                     {
                         // Идём по столбцам 2 матрицы
                         for (int j = 0; j < Matrix2.GetLength(1); j++)
@@ -323,7 +328,11 @@ namespace Matrix_Calc
                         Ans_Grid.Rows[i].Cells[j].Value = MatrixResult[i, j];
                     }
                 }
+                watch1.Stop();
+                label5.Text = "Время при"+ Environment.NewLine+ "последовательном"+ Environment.NewLine+$"умножении: {watch1.Elapsed.TotalSeconds}";
+                label5.Show();
                 Ans_Grid.Show();
+
 
                 //и расширяем по размеру
                 for (int ansco = 1; ansco <= s; ansco++)
@@ -335,11 +344,103 @@ namespace Matrix_Calc
                 Ans_Grid.Hide();
                 return;
             }
+            
         }
         #endregion
+        #region Умножение (параллельно)
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            var watch2 = new System.Diagnostics.Stopwatch();
+            double[,] Matrix1 = new double[dataGridView1.RowCount, dataGridView1.ColumnCount];
+            double[,] Matrix2 = new double[dataGridView2.RowCount, dataGridView2.ColumnCount];
+            try
+            {
+                watch2.Start();
+                Parallel.For(0, dataGridView1.RowCount, i =>
+                {
+                    for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    {
+                        //Преобразуем значения из ячеек в числа и пишем в массив
+                        //Если не число то происходит вызов исключения и его обработка
+                        Matrix1[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
+                    }
+                });
+                Parallel.For(0, dataGridView2.RowCount, i =>
+                {
+                    for (int j = 0; j < dataGridView2.ColumnCount; j++)
+                    {
+                        //Преобразуем значения из ячеек в числа и пишем в массив
+                        //Если не число то происходит вызов исключения и его обработка
+                        Matrix2[i, j] = Convert.ToDouble(dataGridView2.Rows[i].Cells[j].Value);
+                    }
+                });
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Некорректный тип данных!");
+                return;
+            }
 
+            //Проверяем равность столбцов 1 матрицы строкам 2 матрицы
+            if (Matrix1.GetLength(1) == Matrix2.GetLength(0))
+            {
+                //Генерируем форму матрицы-результата
+                double[,] MatrixResult = new double[Matrix1.GetLength(0), Matrix2.GetLength(1)];
+                Ans_Grid.RowCount = dataGridView1.RowCount;
+                Ans_Grid.ColumnCount = dataGridView2.ColumnCount;
+                Ans_Grid.AutoResizeColumns();
+
+                //производим умножение элементов
+                try
+                {
+                    Parallel.For(0, Matrix1.GetLength(0), i =>
+                    {
+                        // Идём по столбцам 2 матрицы
+                        for (int j = 0; j < Matrix2.GetLength(1); j++)
+                        {
+                            //Идём по строкам 2 матрицы
+                            for (int k = 0; k < Matrix2.GetLength(0); k++)
+                            {
+                                MatrixResult[i, j] += Matrix1[i, k] * Matrix2[k, j];
+                            }
+                        }
+                    });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Некорректный тип данных!");
+                    Ans_Grid.Hide();
+                    return;
+                }
+
+                //Показываем результат при удачном исходе
+                Parallel.For(0, MatrixResult.GetLength(0), i =>
+                {
+                    for (j = 0; j < MatrixResult.GetLength(1); j++)
+                    {
+                        Ans_Grid.Rows[i].Cells[j].Value = MatrixResult[i, j];
+                    }
+                });
+
+                watch2.Stop();
+                label6.Text = "Время с паралельным"+ Environment.NewLine+$"алгоритмом: {watch2.Elapsed.TotalSeconds}";
+                label6.Show();
+                Ans_Grid.Show();
+            }
+            else
+            {
+                MessageBox.Show("Количество столбцов 1-ой матрицы должно быть равно количеству строк 2-ой матрицы!");
+                Ans_Grid.Hide();
+                return;
+            }
+        }
+
+
+
+
+        #endregion
         #region Сложение
-        private void btn_plus_Click(object sender, EventArgs e)
+        private void Btn_plus_Click(object sender, EventArgs e)
         {
             //Проверяем равность строк и столбцов
             if ((dataGridView1.RowCount == dataGridView2.RowCount) & (dataGridView1.ColumnCount == dataGridView2.ColumnCount))
@@ -391,7 +492,7 @@ namespace Matrix_Calc
         #endregion
 
         #region Вычитание
-        private void btn_Minus_Click(object sender, EventArgs e)
+        private void Btn_Minus_Click(object sender, EventArgs e)
         {
             //Проверяем равность строк и столбцов
             if ((dataGridView1.RowCount == dataGridView2.RowCount) & (dataGridView1.ColumnCount == dataGridView2.ColumnCount))
@@ -442,7 +543,7 @@ namespace Matrix_Calc
         #endregion
 
         #region Очистка ВСЕХ форм
-        private void btn_clear_Click(object sender, EventArgs e)
+        private void Btn_clear_Click(object sender, EventArgs e)
         {
             dataGridView1.Columns.Clear();
             dataGridView2.Columns.Clear();
@@ -459,14 +560,14 @@ namespace Matrix_Calc
     #endregion
 
     #region Автоматическое масштабирование клеток при изменении значений
-            private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+            private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             for (int co = 1; co <= p; co++)
                 
            dataGridView1.Columns[co-1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;  
         }
 
-        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             for (int co2 = 1; co2 <= s; co2++)
                 dataGridView2.Columns[co2 - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -479,5 +580,7 @@ namespace Matrix_Calc
         {
 
         }
+
+       
     }
 }
